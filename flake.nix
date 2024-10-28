@@ -2,7 +2,7 @@
   description = "Template for nix projects";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/x86_64-linux";
     treefmt = {
       url = "github:numtide/treefmt-nix";
@@ -47,6 +47,10 @@
         inherit (nix-checks.lib.${system}) checks;
       in
       {
+        homeModules = {
+          mycli = import ./modules/mycli.nix;
+        };
+
         checks = {
           # just check formatting is ok without changing anything
           formatting = treefmt-build.check self;
